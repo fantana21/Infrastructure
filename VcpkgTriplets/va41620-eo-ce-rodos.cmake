@@ -13,9 +13,9 @@ set(VCPKG_HASH_ADDITIONAL_FILES
     "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-C.cmake"
     "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-CXX.cmake"
     "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU.cmake"
-    "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-C-Va416xx.cmake"
-    "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-CXX-Va416xx.cmake"
-    "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-Va416xx.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-C-VA416xx.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-CXX-VA416xx.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-VA416xx.cmake"
     "${CMAKE_CURRENT_LIST_DIR}/../CMake/Platform/Generic-ELF-GNU-CortexM4.cmake"
 )
 

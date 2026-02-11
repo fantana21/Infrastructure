@@ -13,9 +13,9 @@ string(
     GET "${vcpkg_json}"
     version-date
 )
-if(version_semver_error STREQUAL NOTFOUND)
+if(version_semver_error STREQUAL "NOTFOUND")
     set(version_from_vcpkg ${version_semver_from_vcpkg})
-elseif(version_date_error STREQUAL NOTFOUND)
+elseif(version_date_error STREQUAL "NOTFOUND")
     # vcpkg requires the format YYYY-MM-DD, but CMake requires dot separated version numbers
     string(REPLACE "-" "." version_from_vcpkg ${version_date_from_vcpkg})
 else()

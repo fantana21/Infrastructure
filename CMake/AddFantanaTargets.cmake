@@ -15,7 +15,7 @@ function(add_fantana_library name type)
     _split_off_project_prefix(${name} prefix rest)
     add_library(${prefix}::${rest} ALIAS ${name})
     set_target_properties(${name} PROPERTIES OUTPUT_NAME ${rest} EXPORT_NAME ${rest})
-    if(type STREQUAL INTERFACE)
+    if(type STREQUAL "INTERFACE")
         set(scope INTERFACE)
     else()
         set(scope PUBLIC)
@@ -74,7 +74,7 @@ endfunction()
 function(_split_off_project_prefix name prefix rest)
     string(REPLACE "_" ";" name_parts ${name})
     list(LENGTH name_parts n_name_parts)
-    if(NOT n_name_parts EQUAL 2)
+    if(NOT n_name_parts EQUAL "2")
         message(
             FATAL_ERROR
             "Cannot split off project-specific prefix. '${name}' does not follow the required "
@@ -91,7 +91,7 @@ function(_remove_test_prefix name rest)
     string(REPLACE "_" ";" name_parts ${name})
     list(LENGTH name_parts n_name_parts)
     list(GET name_parts 0 prefix)
-    if(NOT (n_name_parts EQUAL 2 AND prefix MATCHES ".+Tests$"))
+    if(NOT (n_name_parts EQUAL "2" AND prefix MATCHES ".+Tests$"))
         message(
             FATAL_ERROR
             "Cannot remove test prefix. '${name}' does not follow the required format "

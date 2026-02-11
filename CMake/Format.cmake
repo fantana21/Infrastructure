@@ -19,6 +19,6 @@ execute_process(
     RESULT_VARIABLE cmake_result
 )
 
-if(NOT cpp_result EQUAL 0 OR NOT cmake_result EQUAL 0)
+if(NOT cpp_result EQUAL "0" OR NOT cmake_result EQUAL "0")
     cmake_language(EXIT 1)
 endif()

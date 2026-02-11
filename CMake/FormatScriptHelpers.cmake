@@ -44,8 +44,13 @@ function(_run_cmake_code_formatter)
     message("${action} the following CMake files and directories:")
     message("  ${files_and_directories}\n")
 
+    find_program(formatter gersemi)
+    if(NOT formatter)
+        message(FATAL_ERROR "Couldn't find 'gersemi'. Ensure it's installed and on your PATH.")
+    endif()
+
     execute_process(
-        COMMAND gersemi ${flag} --warnings-as-errors --no-cache ${ARG_FILES_AND_DIRECTORIES}
+        COMMAND "${formatter}" ${flag} --warnings-as-errors --no-cache ${ARG_FILES_AND_DIRECTORIES}
         RESULT_VARIABLE result
         ERROR_VARIABLE error_output
     )
@@ -103,11 +108,16 @@ function(_run_cpp_code_formatter)
     message("${action} the following C++ files:")
     message("  ${files}\n")
 
+    find_program(formatter clang-format)
+    if(NOT formatter)
+        message(FATAL_ERROR "Couldn't find 'clang-format'. Ensure it's installed and on your PATH.")
+    endif()
+
     set(badly_formatted_files "")
     set(output "")
     foreach(file IN LISTS ARG_FILES)
         execute_process(
-            COMMAND clang-format --style=file "${flag}" "${file}"
+            COMMAND "${formatter}" --style=file "${flag}" "${file}"
             RESULT_VARIABLE result
             ${args}
         )

@@ -72,7 +72,7 @@ function(add_fantana_test name)
 endfunction()
 
 function(_split_off_project_prefix name prefix rest)
-    string(REPLACE "_" ";" name_parts ${name})
+    string(REPLACE "_" ";" name_parts "${name}")
     list(LENGTH name_parts n_name_parts)
     if(NOT n_name_parts EQUAL "2")
         message(
@@ -88,7 +88,7 @@ function(_split_off_project_prefix name prefix rest)
 endfunction()
 
 function(_remove_test_prefix name rest)
-    string(REPLACE "_" ";" name_parts ${name})
+    string(REPLACE "_" ";" name_parts "${name}")
     list(LENGTH name_parts n_name_parts)
     list(GET name_parts 0 prefix)
     if(NOT (n_name_parts EQUAL "2" AND prefix MATCHES ".+Tests$"))

@@ -17,7 +17,7 @@ if(version_semver_error STREQUAL "NOTFOUND")
     set(version_from_vcpkg ${version_semver_from_vcpkg})
 elseif(version_date_error STREQUAL "NOTFOUND")
     # vcpkg requires the format YYYY-MM-DD, but CMake requires dot separated version numbers
-    string(REPLACE "-" "." version_from_vcpkg ${version_date_from_vcpkg})
+    string(REPLACE "-" "." version_from_vcpkg "${version_date_from_vcpkg}")
 else()
     message(FATAL_ERROR "vcpkg manifest must contain 'version-semver' or 'version-date'")
 endif()

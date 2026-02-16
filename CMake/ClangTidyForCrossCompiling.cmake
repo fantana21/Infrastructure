@@ -2,6 +2,8 @@
 # find the correct standard library headers.
 if(CMAKE_CXX_CLANG_TIDY AND CMAKE_CXX_COMPILER MATCHES "arm-none-eabi")
     list(APPEND CMAKE_CXX_CLANG_TIDY --extra-arg=--target=arm-none-eabi)
+    # Disable standard C++ include paths. We add the correct ones manually with -isystem below.
+    list(APPEND CMAKE_CXX_CLANG_TIDY --extra-arg=-nostdinc++)
     set(implicit_includes
         ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES}
         ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES}

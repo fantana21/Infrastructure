@@ -71,6 +71,34 @@ function(add_fantana_test name)
     endif()
 endfunction()
 
+# add_fantana_benchmark(<name> [OUTPUT_NAME <output_name>] [SOURCES <sources>...])
+#
+# - <name> must be of the form <ProjectPrefix>Benchmarks_<Rest>
+# - default output name = <Rest>Benchmark
+# - default sources     = <Rest>.benchmark.cpp
+#
+# Add a benchmark executable according to our CMake conventions, setting its output name, sources,
+# include directories, and C++ standard.  On embedded targets, also set the linker script and add
+# post-build steps to generate a .bin file and display size information.
+function(add_fantana_benchmark name)
+    cmake_parse_arguments(ARG "" "OUTPUT_NAME" "SOURCES" ${ARGN})
+    _remove_benchmark_prefix(${name} rest)
+    if(NOT ARG_SOURCES)
+        set(ARG_SOURCES ${rest}.benchmark.cpp)
+    endif()
+    add_executable(${name} ${ARG_SOURCES})
+    if(NOT ARG_OUTPUT_NAME)
+        set(ARG_OUTPUT_NAME ${rest}Benchmark)
+    endif()
+    set_target_properties(${name} PROPERTIES OUTPUT_NAME ${ARG_OUTPUT_NAME})
+    _set_include_directories_and_cxx_standard(${name} PRIVATE)
+    if(CMAKE_SYSTEM_NAME MATCHES "Generic.*")
+        _configure_embedded_executable(${name} ${ARG_OUTPUT_NAME})
+    endif()
+endfunction()
+
+# --- Private functions ---
+
 function(_split_off_project_prefix name prefix rest)
     string(REPLACE "_" ";" name_parts "${name}")
     list(LENGTH name_parts n_name_parts)
@@ -96,6 +124,21 @@ function(_remove_test_prefix name rest)
             FATAL_ERROR
             "Cannot remove test prefix. '${name}' does not follow the required format "
             "<ProjectPrefix>Tests_<Rest>"
+        )
+    endif()
+    list(GET name_parts 1 rest_)
+    set(${rest} ${rest_} PARENT_SCOPE)
+endfunction()
+
+function(_remove_benchmark_prefix name rest)
+    string(REPLACE "_" ";" name_parts "${name}")
+    list(LENGTH name_parts n_name_parts)
+    list(GET name_parts 0 prefix)
+    if(NOT (n_name_parts EQUAL "2" AND prefix MATCHES ".+Benchmarks$"))
+        message(
+            FATAL_ERROR
+            "Cannot remove benchmark prefix. '${name}' does not follow the required format "
+            "<ProjectPrefix>Benchmarks_<Rest>"
         )
     endif()
     list(GET name_parts 1 rest_)

@@ -13,10 +13,10 @@ if(CCACHE_PROGRAM)
         # CCACHE_SLOPPINESS=pch_defines,time_macros
     )
     set(CMAKE_CXX_COMPILER_LAUNCHER
-        ${CMAKE_COMMAND}
+        "${CMAKE_COMMAND}"
         -E
         env
         ${ccacheEnv}
-        ${CCACHE_PROGRAM}
+        "${CCACHE_PROGRAM}"
     )
 endif()

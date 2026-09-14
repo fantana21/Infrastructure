@@ -10,7 +10,7 @@ set(CMAKE_CXX_COMPILER ${toolchain_prefix}g++)
 set(CMAKE_SIZE ${toolchain_prefix}size)
 
 # Add CMake directory to CMAKE_MODULE_PATH to find platform files
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/..")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/..")
 
 # Never search for programs in the target environment
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
